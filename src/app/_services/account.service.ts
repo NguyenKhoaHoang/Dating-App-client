@@ -7,11 +7,9 @@ import { AuthUser, UserToken } from '../_models/app-user';
   providedIn: 'root'
 })
 export class AccountService {
-  httpOption = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
 
   baseUrl = 'https://localhost:7039/api/Auth/';
   private currentUser = new BehaviorSubject<UserToken | null>(null);
@@ -21,12 +19,17 @@ export class AccountService {
   constructor(private httpClient: HttpClient) { }
 
   login(authUser: AuthUser): Observable<any> {
-    return this.httpClient.post<UserToken>(`${this.baseUrl}login`, authUser, this.httpOption)
+    return this.httpClient
+      .post(`${this.baseUrl}login`, authUser, {
+        responseType: 'text',
+        headers: this.headers
+      })
       .pipe(
-        map((response: UserToken) => {
-          if (response) {
-            localStorage.setItem('userToken', JSON.stringify(response));
-            this.currentUser.next(response);
+        map((token) => {
+          if (token) {
+            const userToken : UserToken = { username: authUser.username, token }
+            localStorage.setItem('userToken', JSON.stringify(userToken));
+            this.currentUser.next(userToken);
           }
         })
       );
