@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { AuthUser, UserToken } from '../_models/app-user';
+import { AuthUser, RegisterUser, UserToken } from '../_models/app-user';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +48,20 @@ export class AccountService {
     }
   }
 
-  register() {}
+  register(registerUser : RegisterUser) {
+    return this.httpClient
+      .post(`${this.baseUrl}register`, registerUser, {
+        responseType: 'text',
+        headers: this.headers
+      })
+      .pipe(
+        map((token) => {
+          if (token) {
+            const userToken : UserToken = { username: registerUser.username, token }
+            localStorage.setItem('userToken', JSON.stringify(userToken));
+            this.currentUser.next(userToken);
+          }
+        })
+      );
+  }
 }

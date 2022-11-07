@@ -13,3 +13,15 @@ export class UserToken {
     username: string = "";
     token: string = "";
 }
+
+export class RegisterUser {
+    username: string = "";
+    password: string = "";
+    email: string = "";
+    dateOfBirth: Date = new Date();
+    knowAs: string = "";
+    gender: string = "";
+    introduction: string = "";
+    city: string = "";
+    avatar: string = "";
+}
