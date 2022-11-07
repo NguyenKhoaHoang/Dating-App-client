@@ -1,0 +1,10 @@
+<div class="card mb-5" style="width: 18rem; height: 32rem;" *ngIf="member">
+    <img class="card-img-top" src="{{ member.avatar }}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{ member.knowAs }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ member.city }} - {{ member.age }} - {{ member.age }}</h6>
+      <p class="card-text">{{ member.introduction }}</p>
+      <a href="/members/{{ member.username }}" class="btn btn-primary">More Info</a>
+      <a href="#" class="btn btn-danger ms-5">Follow</a>
+    </div>
+  </div>

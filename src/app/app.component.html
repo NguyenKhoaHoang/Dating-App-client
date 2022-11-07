@@ -1,9 +1,13 @@
 <app-navbar>
 
 </app-navbar>
-<h3 class="text-center">Hello, {{ name }}</h3>
+<h3 class="text-center">Hello, {{ (accountService.currentUser$ | async)?.username  }}</h3>
+<app-members>
+    
+</app-members>
 
-<table class="table table-striped table-bordered table-hover">
+
+<!-- <table class="table table-striped table-bordered table-hover">
     <thead>
         <th>Id</th>
         <th>Name</th>
@@ -16,4 +20,4 @@
             <td>{{ user.email }}</td>
         </tr>
     </tbody>
-</table>
+</table> -->

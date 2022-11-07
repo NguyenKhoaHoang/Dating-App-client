@@ -9,18 +9,9 @@ import { AccountService } from './_services/account.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  name = 'Khoa Hoàng';
-  users: AppUser[] = [];
-  constructor(private httpClient: HttpClient,
-    private accountService: AccountService) {}
+  constructor(public accountService: AccountService) {}
 
   ngOnInit(): void {
     this.accountService.relogin();
-
-    this.httpClient.get<AppUser[]>('https://localhost:7039/api/Auth')
-      .subscribe(
-          response => this.users = response,
-          error => console.log(error)
-        );
   }
 }
